@@ -163,13 +163,13 @@ def test_bubble_sort():
 def test_insertion_sort():
     test_list = [random.randint(0, 100) for _ in range(100)]
     ll = LinkedList(test_list)
-    ll.sorted(method='bubble_sort')
+    ll.sorted(method='insertion_sort')
     assert list(ll) == sorted(test_list)
 
     ll = LinkedList([1])
-    ll.sorted(method='bubble_sort')
+    ll.sorted(method='insertion_sort')
     assert list(ll) == [1]
 
     ll = LinkedList()
-    ll.sorted(method='bubble_sort')
+    ll.sorted(method='insertion_sort')
     assert list(ll) == []
