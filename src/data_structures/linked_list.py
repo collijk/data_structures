@@ -354,13 +354,9 @@ class LinkedList:
             else:  # General case, insert between head and previous, exclusive
                 previous.next_node = current.next_node
                 comparison_node = self.head
-                insertion_point_found = False
 
-                while not insertion_point_found:
-                    if current < comparison_node.next_node:
-                        insertion_point_found = True
-                    else:
-                        comparison_node = comparison_node.next_node
+                while current > comparison_node.next_node:
+                    comparison_node = comparison_node.next_node
 
                 current.next_node = comparison_node.next_node
                 comparison_node.next_node = current
