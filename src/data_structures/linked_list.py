@@ -63,7 +63,7 @@ class LinkedListNode(BaseNode):
         if self.next_node:
             return "[{} | -]-->".format(self.value, self.next_node.value)
         else:
-            return "[{} | -]--> None".format(self.value, self.next_node.value)
+            return "[{} | -]--> None".format(self.value)
 
     def __repr__(self):
         """Returns the 'official' string representation of this node.
@@ -303,7 +303,34 @@ class LinkedList:
             raise NotImplementedError()
 
     def _bubble_sort(self):
-        raise NotImplementedError()
+        if len(self) <= 1:
+            return
+
+        swaps_this_iteration = True
+        while swaps_this_iteration:
+            swaps_this_iteration = False
+
+            previous = self.head
+            current = previous.next_node
+
+            if previous > current:
+                self.head = current
+                previous.next_node = current.next_node
+                current.next_node = previous
+                previous, current = current, previous
+                swaps_this_iteration = True
+
+            while current.next_node:
+
+                if current > current.next_node:
+                    previous.next_node = current.next_node
+                    current.next_node = current.next_node.next_node
+                    previous.next_node.next_node = current
+                    previous = previous.next_node
+                    swaps_this_iteration = True
+                else:
+                    previous = current
+                    current = current.next_node
 
     def _insertion_sort(self):
         raise NotImplementedError()
