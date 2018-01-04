@@ -333,7 +333,30 @@ class LinkedList:
                     current = current.next_node
 
     def _insertion_sort(self):
-        raise NotImplementedError()
+        length = len(self)
+
+        if length <= 1:
+            return
+
+        previous = self.head
+        current = previous.next_node
+        while current:
+            if current >= previous:  # No swaps, just advance. O(n) for already sorted lists.
+                previous, current = current, current.next_node
+            elif current < self.head:  # Special case, insert at head
+                previous.next_node = current.next_node
+                current.next_node = self.head
+                self.head = current
+                current = previous.next_node
+            else:  # General case, insert between head and previous, exclusive
+                previous.next_node = current.next_node
+
+                comparison_node = self.head
+                while comparison_node < previous:
+                    if current < comparison_node.next_node:
+                        current.next_node = comparison_node.next_node
+                        comparison_node.next_node = current
+                        break
 
     def __len__(self):
         count = 0
