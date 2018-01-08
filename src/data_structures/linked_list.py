@@ -313,7 +313,7 @@ class LinkedList:
             previous = self.head
             current = previous.next_node
 
-            if previous > current:
+            if previous > current: #
                 self.head = current
                 previous.next_node = current.next_node
                 current.next_node = previous
@@ -342,16 +342,17 @@ class LinkedList:
         current = previous.next_node
 
         while current:
-            if current >= previous:  # No swaps, just advance. O(n) for already sorted lists.
+
+            if current >= previous:  #
                 previous, current = current, current.next_node
 
-            elif current < self.head:  # Special case, insert at head
+            elif current < self.head:
                 previous.next_node = current.next_node
                 current.next_node = self.head
                 self.head = current
                 current = previous.next_node
 
-            else:  # General case, insert between head and previous, exclusive
+            else:
                 previous.next_node = current.next_node
                 comparison_node = self.head
 
