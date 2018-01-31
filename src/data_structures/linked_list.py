@@ -1,5 +1,6 @@
 """A python linked list implementation."""
 from typing import Iterable
+from math import log2
 
 from data_structures.node import BaseNode
 
@@ -299,6 +300,8 @@ class LinkedList:
             self._bubble_sort()
         elif method == 'insertion_sort':
             self._insertion_sort()
+        elif method == 'merge_sort':
+            self._merge_sort()
         else:
             raise NotImplementedError()
 
@@ -363,6 +366,43 @@ class LinkedList:
                 comparison_node.next_node = current
                 current = previous.next_node
 
+    def _merge_sort(self):
+        self.head = _merge_sort_recursive(self.head, len(self))
+
+    def _merge_sort_iterative(self):
+        length = len(self)
+
+        if length <= 1:
+            return
+
+        sub_list_length = 1
+        while sub_list_length < length:
+            left = self.head
+            right = self.head
+            for _ in range(sub_list_length):
+                right = right.next_node
+
+            if left <= right:
+                previous = left
+                left = left.next_node
+            else:
+                self.head = right
+                previous = right
+                right = right.next_node
+                previous.next_node = left
+
+            while left:
+                if left <= right:
+                    previous = left
+                    left = left.next_node
+                else:
+                    previous.next_node = right
+                    right = right.next_node
+                    previous = previous.next_node
+                    previous.next_node = left
+
+
+
     def __len__(self):
         count = 0
         node = self.head
@@ -413,3 +453,44 @@ class LinkedList:
             current_node = current_node.next_node
         out += ')'
         return out
+
+
+def _merge_sort_recursive(node, length):
+    if length in [0, 1]:
+        return node
+
+    left_head = node
+    for _ in range(length//2 + length % 2 - 1):
+        node = node.next_node
+
+    right_head = node.next_node
+    node.next_node = None
+
+    left = _merge_sort_recursive(left_head, length - length//2)
+    right = _merge_sort_recursive(right_head, length//2)
+
+    return _sorted_merge(left, right)
+
+
+def _sorted_merge(left, right):
+
+    if not left:
+        return right
+    if not right:
+        return left
+
+    if left <= right:
+        result = left
+        result.next_node = _sorted_merge(left.next_node, right)
+    else:
+        result = right
+        result.next_node = _sorted_merge(left, right.next_node)
+
+    return result
+
+
+
+
+
+
+
