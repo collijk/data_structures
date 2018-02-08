@@ -239,3 +239,34 @@ class BST:
             level = next_level
 
         return out[:-1]
+
+
+class AVLTree(BST):
+
+    def insert(self, value):
+        #print("AVL insert not yet implemented.  Using BST insert.")
+        super().insert(value)
+
+    def right_rotate(self, node, parent):
+        if parent is None:
+            self.root = node.left
+        elif parent.left is node:
+            parent.left = node.left
+        else:
+            parent.right = node.left
+        old_left = node.left
+        node.left = old_left.right
+        old_left.right = node
+
+    def left_rotate(self, node, parent):
+        if parent is None:
+            self.root = node.right
+        elif parent.left is node:
+            parent.left = node.right
+        else:
+            parent.right = node.right
+        old_right = node.right
+        node.right = old_right.left
+        old_right.left = node
+
+
