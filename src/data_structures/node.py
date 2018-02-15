@@ -29,3 +29,12 @@ class BaseNode:
 
     def __repr__(self):
         return "BaseNode(value={})".format(self.value)
+
+
+class EmptyNode:
+
+    def __bool__(self):
+        return False
+
+    def __repr__(self):
+        return "EmptyNode()"
