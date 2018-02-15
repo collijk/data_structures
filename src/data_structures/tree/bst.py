@@ -34,8 +34,8 @@ class BSTNode(BaseNode):
            The data this node will hold after initialization.
         """
         super().__init__(value)
-        self._left = EmptyBSTNode()
-        self._right = EmptyBSTNode()
+        self._left = self._set_child(self.value, None)
+        self._right = self._set_child(self.value, None)
         self.height = 1
 
     @property
@@ -59,14 +59,14 @@ class BSTNode(BaseNode):
         if isinstance(new_child, EmptyBSTNode) or new_child is None:
             return EmptyBSTNode()
 
-        if isinstance(new_child, BSTNode):
+        elif isinstance(new_child, BSTNode):
             try:
                 _ = new_child.value < current_value
                 return new_child
             except TypeError:
                 raise TypeError("A node and it's children must have comparable data types")
-
-        raise TypeError("Invalid Node type {}".format(new_child.__class__))
+        else:
+            raise TypeError("Invalid Node type {}".format(new_child.__class__))
 
     def __repr__(self):
         """Returns the 'official' string representation of this node.
@@ -78,8 +78,8 @@ class BSTNode(BaseNode):
             if getattr(self, child):
                 out += "{}=BSTNode({}), ".format(child, getattr(self, child).value)
             else:
-                out += "{}=EmptyNode()"
-        return out
+                out += "{}=EmptyBSTNode(), "
+        return out[:-2] + ')'
 
 
 class BST:
@@ -104,7 +104,7 @@ class BST:
     def _make_node(value):
         if value is not None:
             return BSTNode(value)
-        return EmptyNode()
+        return EmptyBSTNode()
 
     def insert(self, value):
         """Inserts the given value into the tree."""
