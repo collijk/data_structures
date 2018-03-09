@@ -47,7 +47,7 @@ class AVLTree(BST):
             elif balance < -1:  # double left heavy
                 left_balance = current_node.left.right.height - current_node.left.left.height
                 left_node = current_node.left
-                if left_balance <=0:
+                if left_balance <= 0:
                     self.right_rotate(current_node, parent)
                     current_node.height = max(current_node.left.height, current_node.right.height) + 1
                     left_node.height = max(left_node.left.height, left_node.right.height) + 1

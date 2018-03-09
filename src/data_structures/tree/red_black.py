@@ -1,6 +1,7 @@
 from enum import Enum
 from .bst import BST, EmptyBSTNode, BSTNode
 
+
 class Color(Enum):
     Black = 0
     Red = 1
@@ -49,7 +50,6 @@ class RedBlackNode(BSTNode):
                 raise TypeError("A node and it's children must have comparable data types")
         else:
             raise TypeError("Invalid Node type {}".format(new_child.__class__))
-
 
     def __repr__(self):
         out = "RedBlackNode(value={}, color={}, ".format(self.value, self.color.name)
@@ -110,15 +110,10 @@ class RedBlackTree(BST):
                 uncle.color = Color.Black
                 grandparent.color = Color.Red
 
-            if current_node.color is Color.Black:  # We're done
-                break
+            else:  # Rotations
 
-            parent = self._visited.pop()
-            sibling = parent.right if current_node is parent.left else parent.left
-
-            if sibling.color is Color.Red:  # Recolor case
-                current_node.color = Color.Black
-                sibling.color = Color.Black
+                if current_node is parent.left and parent is grandparent.left:
+                    
 
 
 
